@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY",
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://django-expense-tracker-yhrd.onrender.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
