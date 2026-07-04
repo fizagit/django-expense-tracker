@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Edit Expense</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="form-container">
+
+    <h1>Edit Expense</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Expense Title</label>
+            <input
+                type="text"
+                name="title"
+                value="{{ expense.title }}"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Amount</label>
+            <input
+                type="number"
+                step="0.01"
+                name="amount"
+                value="{{ expense.amount }}"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+
+            <select name="category">
+
+                <option {% if expense.category == "Food" %}selected{% endif %}>Food</option>
+                <option {% if expense.category == "Transportation" %}selected{% endif %}>Transportation</option>
+                <option {% if expense.category == "Shopping" %}selected{% endif %}>Shopping</option>
+                <option {% if expense.category == "Education" %}selected{% endif %}>Education</option>
+                <option {% if expense.category == "Bills" %}selected{% endif %}>Bills</option>
+                <option {% if expense.category == "Healthcare" %}selected{% endif %}>Healthcare</option>
+                <option {% if expense.category == "Entertainment" %}selected{% endif %}>Entertainment</option>
+                <option {% if expense.category == "Travel" %}selected{% endif %}>Travel</option>
+                <option {% if expense.category == "Rent" %}selected{% endif %}>Rent</option>
+                <option {% if expense.category == "Subscriptions" %}selected{% endif %}>Subscriptions</option>
+                <option {% if expense.category == "Groceries" %}selected{% endif %}>Groceries</option>
+                <option {% if expense.category == "Savings" %}selected{% endif %}>Savings</option>
+                <option {% if expense.category == "Investment" %}selected{% endif %}>Investment</option>
+                <option {% if expense.category == "Other" %}selected{% endif %}>Other</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label>Date</label>
+            <input
+                type="date"
+                name="date"
+                value="{{ expense.date|date:'Y-m-d' }}"
+                required
+            >
+        </div>
+
+        <button class="submit-btn" type="submit">
+            Save Changes
+        </button>
+
+    </form>
+
+    <div class="form-link">
+        <a href="{% url 'expenses' %}">
+            ← Back to Expenses
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">Expense Tracker</div>
+
+    <div class="nav-links">
+        <a href="{% url 'logout_user' %}">Logout</a>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>
+        Welcome <i>{{ request.user.username }}</i>
+    </h1>
+    <p>Manage your budget and expenses</p>
+</div>
+
+<!-- NOTIFICATION -->
+{% if notification %}
+    <div class="notification-box {{ notification_type }}">
+        {{ notification|linebreaksbr }}
+    </div>
+{% endif %}
+
+<!-- CARDS -->
+<div class="dashboard-card">
+    <h2>Your Budget</h2>
+    <h1>₹{{ budget_amount }}</h1>
+</div>
+
+<div class="dashboard-card">
+    <h2>Total Spent</h2>
+    <h1>₹{{ total_spent }}</h1>
+</div>
+
+<div class="dashboard-card">
+    <h2>Remaining Budget</h2>
+    <h1>₹{{ remaining }}</h1>
+</div>
+
+<!-- BUTTONS -->
+<div class="button-center">
+
+    <a href="{% url 'set_budget' %}" class="btn">Set Budget</a>
+
+    <a href="{% url 'add_expense' %}" class="btn">Add Expense</a>
+
+    <a href="{% url 'expenses' %}" class="btn">View Expenses</a>
+
+</div>
+
+<!-- EXPENSE LIST -->
+<div class="dashboard-card">
+    <h2>Recent Expenses</h2>
+
+    {% for expense in expenses %}
+        <div class="expense-row">
+
+            <div>
+                <b>{{ expense.title }}</b><br>
+                ₹{{ expense.amount }} | {{ expense.category }}<br>
+                <small>{{ expense.date }}</small>
+            </div>
+
+            <div>
+                <a href="{% url 'edit_expense' expense.id %}" class="edit-btn">
+                    Edit
+                </a>
+
+                <form action="{% url 'delete_expense' expense.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-btn">
+                        Delete
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    {% empty %}
+        <p>No expenses added yet.</p>
+    {% endfor %}
+</div>
+
+<!-- PIE CHART -->
+<div class="dashboard-card">
+    <h2>Expense Breakdown</h2>
+    <canvas id="expenseChart"></canvas>
+</div>
+
+<script>
+    const data = JSON.parse('{{ category_totals_json|escapejs }}');
+
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+
+    if (labels.length === 0) {
+        document.getElementById('expenseChart').style.display = "none";
+    } else {
+        new Chart(document.getElementById('expenseChart'), {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values
+                }]
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

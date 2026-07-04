@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker</title>
+</head>
+<body>
+
+   <nav>
+    <div class="logo">Expense Tracker</div>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'login' %}">Sign In</a>
+        <a href="{% url 'register' %}">Register</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Smart Expense Tracker</h1>
+    <p>Track spending, manage budgets, and gain financial insights.</p>
+
+    <a href="{% url 'register' %}" class="btn">Get Started</a>
+    <a href="{% url 'login' %}" class="btn">Sign In</a>
+</section>
+
+<section class="features">
+    <h2>Features</h2>
+
+    <div class="feature-box">
+
+        <div class="card">
+            <h3>Expense Tracking</h3>
+            <p>Record daily expenses easily.</p>
+        </div>
+
+        <div class="card">
+            <h3>Budget Alerts</h3>
+            <p>Get warnings before overspending.</p>
+        </div>
+
+        <div class="card">
+            <h3>Analytics</h3>
+            <p>Visualize spending with charts.</p>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Smart Expense Tracker</p>
+</footer>
+
+</body>
+</html>
