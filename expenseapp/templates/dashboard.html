@@ -62,33 +62,6 @@
 
 </div>
 
-<!-- PIE CHART -->
-<div class="dashboard-card">
-    <h2>Expense Breakdown</h2>
-    <canvas id="expenseChart"></canvas>
-</div>
-
-<script>
-    const data = JSON.parse('{{ category_totals_json|escapejs }}');
-
-    const labels = Object.keys(data);
-    const values = Object.values(data);
-
-    if (labels.length === 0) {
-        document.getElementById('expenseChart').style.display = "none";
-    } else {
-        new Chart(document.getElementById('expenseChart'), {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: values
-                }]
-            }
-        });
-    }
-</script>
-
 <!-- EXPENSE LIST -->
 <div class="dashboard-card">
     <h2>Recent Expenses</h2>
@@ -120,6 +93,33 @@
         <p>No expenses added yet.</p>
     {% endfor %}
 </div>
+
+<!-- PIE CHART -->
+<div class="dashboard-card">
+    <h2>Expense Breakdown</h2>
+    <canvas id="expenseChart"></canvas>
+</div>
+
+<script>
+    const data = JSON.parse('{{ category_totals_json|escapejs }}');
+
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+
+    if (labels.length === 0) {
+        document.getElementById('expenseChart').style.display = "none";
+    } else {
+        new Chart(document.getElementById('expenseChart'), {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values
+                }]
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
