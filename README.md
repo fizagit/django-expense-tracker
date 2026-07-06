@@ -23,7 +23,7 @@ A web-based expense tracking application built using Django.
 * Click here to view the website on Render:
    https://django-expense-tracker-yhrd.onrender.com
 
-            ###OR
+     ###OR
 
 1. Clone the repository:
 
