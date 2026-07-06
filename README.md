@@ -20,6 +20,9 @@ A web-based expense tracking application built using Django.
 * SQLite
 
 ## How to Run
+>> Click here to view the website on Render:
+   https://django-expense-tracker-yhrd.onrender.com
+
 
 1. Clone the repository:
 
